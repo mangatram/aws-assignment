@@ -1,26 +1,29 @@
-variable "lamda-function-name" {
-  default = "mk-lamda-function-02"
+# resource "aws_iam_role" "lambda_function_role" {
+#   name = "${var.lambda-function-name}-iam-role"
+#   tags = var.tags
+#   assume_role_policy = jsonencode({
+#     Version = "2012-10-17",
+#     Statement = [{
+#       Action = "sts:AssumeRole",
+#       Effect = "Allow",
+#       Principal = {
+#         Service = "lambda.amazonaws.com"
+#       }
+#     }]
+#   })
+# }
+
+module "lambda_function_role" {
+  source       = "./modules/iam-role"
+  role-prefix  = var.lambda-function-name
+  tags         = var.tags
+  role-Service = "lambda.amazonaws.com"
 }
 
-resource "aws_iam_role" "lamda_function_role" {
-  name = "${var.lamda-function-name}-iam-role"
-  tags = var.tags
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [{
-      Action = "sts:AssumeRole",
-      Effect = "Allow",
-      Principal = {
-        Service = "lambda.amazonaws.com"
-      }
-    }]
-  })
-}
-
-resource "aws_iam_policy" "lamda_function_policy" {
-  name        = "${var.lamda-function-name}-iam-policy"
+resource "aws_iam_policy" "lambda_function_policy" {
+  name        = "${var.lambda-function-name}-iam-policy"
   tags        = var.tags
-  description = "IAM policy for lamda function to : trigger step function, read s3 bucket"
+  description = "IAM policy for lambda function to : trigger step function, read s3 bucket"
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
@@ -54,32 +57,35 @@ resource "aws_iam_policy" "lamda_function_policy" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "attach_lamda_function_policy" {
-  policy_arn = aws_iam_policy.lamda_function_policy.arn
-  role       = aws_iam_role.lamda_function_role.name
+resource "aws_iam_role_policy_attachment" "attach_lambda_function_policy" {
+  policy_arn = aws_iam_policy.lambda_function_policy.arn
+  role       = module.lambda_function_role.name
 }
 
 data "archive_file" "lambda" {
   type        = "zip"
-  source_file = "lambda_function.py"
-  output_path = "lambda_function_payload.zip"
+  source_file = var.python-code-file-path
+  output_path = local.zip-file-output-path
 }
+
+data "aws_region" "current" {}
 
 resource "aws_lambda_function" "lambda_function" {
   # If the file is not in the current working directory you will need to include a
   # path.module in the filename.
-  filename      = "lambda_function_payload.zip"
-  function_name = var.lamda-function-name
-  role          = aws_iam_role.lamda_function_role.arn
-  handler       = "lambda_function.lambda_handler"
+  filename      = local.zip-file-output-path
+  function_name = var.lambda-function-name
+  role          = module.lambda_function_role.arn
+  handler       = var.python-lambda-handler
 
   source_code_hash = data.archive_file.lambda.output_base64sha256
 
-  runtime = "python3.10"
+  runtime = var.python-function-runtime-version
 
   environment {
     variables = {
-      foo = "bar"
+      REGION            = data.aws_region.current.name
+      STATE_MACHINE_ARN = aws_sfn_state_machine.step_function_01.arn
     }
   }
 }
