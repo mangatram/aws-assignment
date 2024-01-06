@@ -1,0 +1,8 @@
+{
+    "TableName": "mk-dynamo-table-01",
+    "Item": {
+      "FileName": {
+        "S.$": "$.fileName"
+      }
+    }
+  }
