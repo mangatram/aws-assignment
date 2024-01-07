@@ -54,19 +54,17 @@ Make sure terraform is installed on the machine executing these commands. Follow
 ```shell
 terraform init
 terraform plan --var-file="parameters-localstack.tfvars"
-# run below after validating terraform plan output
-terraform apply --var-file="parameters-localstack.tfvars" --auto-approve
+terraform apply --var-file="parameters-localstack.tfvars" --auto-approve # run this after validating terraform plan output
 ```
 #### Validate functionality
 ###### upload a file to s3 bucket
 ```shell
-aws --endpoint-url http://localhost:4566 s3 cp README.md s3://test-bucket/
+aws --endpoint-url http://localhost:4566 s3 cp README.md s3://test-bucket/ --region "eu-central-1" # remove region parameter if it givens a parameter error
 ```
 ##### verify step function trigger
 
 ```shell
-# if below output shows an entry for above copied file name, the execution is a success
-aws --endpoint-url http://localhost:4566 dynamodb scan --table-name Files
+aws --endpoint-url http://localhost:4566 dynamodb scan --table-name Files --region "eu-central-1" # remove region parameter if it givens a parameter error
 ```
 </details>
 
@@ -108,7 +106,7 @@ export AWS_REGION=eu-central-1
 #### Stack execution
 A parameter file is used (parameters.json) to avoid supplying parameters on the command line.
 ```shell
-aws --endpoint-url http://localhost:4566 cloudformation create-stack --template-body file://stack.template --parameters file://parameters.json --stack-name "stack-01" # input stack-name parameter as required
+aws --endpoint-url http://localhost:4566 cloudformation create-stack --template-body file://stack.template --parameters file://parameters.json --stack-name "stack-01" --region "eu-central-1" # remove region parameter if it givens a parameter error, input stack-name parameter as required
 ```
 
 ## CFN-NAG Report
