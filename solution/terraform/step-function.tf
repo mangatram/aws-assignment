@@ -1,6 +1,6 @@
 # Module to create an IAM role for Step Function
 module "step_function_role" {
-  source       = "./modules/iam-role"
+  source       = "./tf-modules/iam-role"
   role-prefix  = var.step-function-name
   tags         = var.tags
   role-Service = "states.amazonaws.com"
