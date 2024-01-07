@@ -1,6 +1,6 @@
 # Solution Documentation
-Make sure to clone the repo before execution terraform and cloudformation solution instructions.
-#### Clone the repo
+Make sure to clone the repo before executing terraform and cloudformation solution instructions.
+### Clone the repo
 ```shell
 git clone https://github.com/mangatram/aws-assignment.git
 ```
@@ -19,14 +19,14 @@ Note:
 - Endpoint URL for localstack is parameterized to allow the code to run on aws
 
 
-## How to Use
+### How to Use
 
-### Navigate to terraform solution directory
+#### Navigate to terraform solution directory
 ```shell
 cd solution/tf
 ```
 
-### Starting LocalStack
+#### Starting LocalStack
 
 Run the following command to start localstack:
 
@@ -35,26 +35,26 @@ docker-compose up
 ```
 Watch the logs for `Execution of "preload_services" took 986.95ms` 
 
-### Authentication
+#### Authentication
 ```shell
 export AWS_ACCESS_KEY_ID=foobar
 export AWS_SECRET_ACCESS_KEY=foobar
 export AWS_REGION=eu-central-1
 ```
 
-## terraform execution
+#### Terraform execution
 
-Make sure terraform is installed on the machine executing these commands. Follow the instructions here: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+Make sure terraform is installed on the machine executing these commands. Follow the install instructions [here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 
-## Terraform init, plan and apply
+#### Terraform init, plan and apply
 ```shell
 terraform init
 terraform plan --var-file="parameters-localstack.tfvars"
 # run below after validating terraform plan output
 terraform apply --var-file="parameters-localstack.tfvars" --auto-approve
 ```
-## Validate functionality
-##### upload a file to s3 bucket
+#### Validate functionality
+###### upload a file to s3 bucket
 ```shell
 aws --endpoint-url http://localhost:4566 s3 cp README.md s3://test-bucket/
 ```
