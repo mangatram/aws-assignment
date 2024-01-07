@@ -39,7 +39,7 @@ variable "tableName" {
 variable "table-atrribute" {
   type        = string
   description = "The primary key attribute name for the DynamoDB table. This attribute is used to uniquely identify each item in the table."
-  
+
   validation {
     condition     = length(var.table-atrribute) > 0 && length(var.table-atrribute) <= 255
     error_message = "The DynamoDB table attribute name must be between 1 and 255 characters.\n"
@@ -101,5 +101,5 @@ variable "dynamodb_billing_mode" {
 variable "force-delete-s3" {
   type        = bool
   description = "whether to force delete the s3 bucket. keep it false for production deployments."
-  default = false
+  default     = false
 }

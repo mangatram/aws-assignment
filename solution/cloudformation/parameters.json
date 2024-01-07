@@ -1,11 +1,11 @@
 [
     {
         "ParameterKey": "BucketName",
-        "ParameterValue": "mktest-bucket-101"
+        "ParameterValue": "test-bucket"
     },
     {
         "ParameterKey": "LogBucketName",
-        "ParameterValue": "mktest-bucket-logs-101"
+        "ParameterValue": "bucket-logs-101"
     },
     {
         "ParameterKey": "ResourceOwner",

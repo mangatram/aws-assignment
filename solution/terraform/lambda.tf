@@ -11,8 +11,8 @@ resource "aws_iam_policy" "lambda_function_policy" {
   name        = "${var.lambda-function-name}-iam-policy"
   tags        = var.tags
   description = "IAM policy for lambda function to trigger step function, read s3 bucket"
-  policy      = jsonencode({
-    Version   = "2012-10-17",
+  policy = jsonencode({
+    Version = "2012-10-17",
     Statement = [
       {
         Action   = ["s3:Get*", "s3:List*", "s3:Describe*", "s3-object-lambda:Get*", "s3-object-lambda:List*"],
@@ -51,12 +51,12 @@ data "aws_region" "current" {}
 
 # Lambda function resource definition
 resource "aws_lambda_function" "lambda_function" {
-  filename      = local.zip-file-output-path
-  function_name = var.lambda-function-name
-  role          = module.lambda_function_role.arn
-  handler       = var.python-lambda-handler
+  filename         = local.zip-file-output-path
+  function_name    = var.lambda-function-name
+  role             = module.lambda_function_role.arn
+  handler          = var.python-lambda-handler
   source_code_hash = data.archive_file.lambda.output_base64sha256
-  runtime       = var.python-function-runtime-version
+  runtime          = var.python-function-runtime-version
   environment {
     variables = {
       REGION            = data.aws_region.current.name

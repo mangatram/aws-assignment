@@ -11,8 +11,8 @@ resource "aws_iam_policy" "step_function_policy" {
   name        = "${var.step-function-name}-iam-policy"
   tags        = var.tags
   description = "IAM policy for step function to write to DynamoDB"
-  policy      = jsonencode({
-    Version   = "2012-10-17",
+  policy = jsonencode({
+    Version = "2012-10-17",
     Statement = [{
       Action   = ["dynamodb:PutItem"],
       Effect   = "Allow",
