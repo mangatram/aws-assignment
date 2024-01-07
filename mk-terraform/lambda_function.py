@@ -8,23 +8,27 @@ def lambda_handler(event, context):
         # fetch environment variables
         region = os.environ.get("REGION")
         state_machine_arn = os.environ.get("STATE_MACHINE_ARN")
+        endpoint_url = os.environ.get("ENDPOINT_URL")
 
         # check if environment variables are missing
         if region is None:
             raise ValueError("missing region environment variable ")
         if state_machine_arn is None:
             raise ValueError("missing state machine arn environment variable")
+        if endpoint_url is None:
+            raise ValueError("missing endpointurl environment variable")
         
         # log the variables
         print(f'region is : {region}')
         print(f'state machine arn : {state_machine_arn}')
+        print(f'endpoint_url : {endpoint_url}')
 
         # Retrieve the bucket name and file name from the S3 event
         bucket = event['Records'][0]['s3']['bucket']['name']
         fileName = event['Records'][0]['s3']['object']['key']
 
         # Define the Step Functions client
-        sf = boto3.client('stepfunctions', region_name=region)
+        sf = boto3.client('stepfunctions', region_name=region, endpoint_url=endpoint_url)
 
         # Create an input dictionary with the file name
         input_dict = {'fileName': fileName}
