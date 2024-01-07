@@ -5,7 +5,7 @@ terraform {
       version = "2.4.1"
     }
     aws = {
-      source  = "hashicorp/aws"
+      source = "hashicorp/aws"
       # compatible aws provider version for localstack
       version = "= 4.46.0"
     }

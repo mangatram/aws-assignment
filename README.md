@@ -13,15 +13,14 @@ git clone https://github.com/mangatram/aws-assignment.git
 
 
 Terraform creates the following resources:
-- An S3 Bucket for file uploads name test-bucket (this can be changed in parameter file named parameters.tfvars).
+- An S3 Bucket for file uploads named `test-bucket`.
 - A DynamoDb table named `Files` with an attribute `FileName`.
 - A Step Function to log uploaded files in the DynamoDb table.
 - A Lambda function triggered by file uploads, executing the Step Function.
 
 Note: 
-- Above parameters can be changed as required in parameters.tfvars file
-- Endpoint URL for localstack is parameterized to allow the code to run on aws
-
+- Above parameters can be changed as required in parameters-localstack.tfvars or parameters-aws.tfvars files.
+- Endpoint URL is parameterized to allow the code to run on both localstack and AWS.
 
 ### How to Use
 
@@ -48,7 +47,7 @@ export AWS_REGION=eu-central-1
 
 #### Terraform execution
 
-Make sure terraform is installed on the machine executing these commands. Follow the install instructions [here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+Make sure terraform is installed on the machine executing these commands. Follow the install instructions [here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli). This code is tested on terraform version 1.6.5 and aws provider version 4.46.0
 
 #### Terraform init, plan and apply
 ```shell
@@ -86,7 +85,7 @@ Note: The template assigns root iam as the s3 access principal as it is not spec
 
 #### Navigate to terraform solution directory
 ```shell
-cd solution/cloudformation
+cd solution/cloudformation  # make sure to be in repo's root directory for this to work
 ```
 
 #### Starting LocalStack

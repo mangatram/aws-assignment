@@ -1,6 +1,6 @@
 s3-bucket-name = "mk-s3-001"
 tags = {
-  owner = "mangat"
+  owner = "ownername"
 }
 lambda-function-name            = "mk-lambda-function-02"
 tableName                       = "Files"
