@@ -1,0 +1,14 @@
+[
+    {
+        "ParameterKey": "BucketName",
+        "ParameterValue": "mktest-bucket-101"
+    },
+    {
+        "ParameterKey": "LogBucketName",
+        "ParameterValue": "mktest-bucket-logs-101"
+    },
+    {
+        "ParameterKey": "ResourceOwner",
+        "ParameterValue": "localstack"
+    }
+]

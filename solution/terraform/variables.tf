@@ -97,3 +97,9 @@ variable "dynamodb_billing_mode" {
     error_message = "The billing mode must be either 'PAY_PER_REQUEST' or 'PROVISIONED'."
   }
 }
+
+variable "force-delete-s3" {
+  type        = bool
+  description = "whether to force delete the s3 bucket. keep it false for production deployments."
+  default = false
+}

@@ -1,6 +1,6 @@
 # Module to create an IAM role for Lambda function
 module "lambda_function_role" {
-  source       = "./modules/iam-role"
+  source       = "./tf-modules/iam-role"
   role-prefix  = var.lambda-function-name
   tags         = var.tags
   role-Service = "lambda.amazonaws.com"
