@@ -6,15 +6,16 @@ terraform {
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "5.31.0"
+      # compatible aws provider version for localstack
+      version = "= 4.46.0"
     }
   }
 }
 
 provider "aws" {
-  access_key = "foobar"
-  secret_key = "foobar"
-  region     = "eu-central-1"
+  # access_key = "foobar"
+  # secret_key = "foobar"
+  # region     = "eu-central-1"
 
   s3_use_path_style           = true
   skip_credentials_validation = true

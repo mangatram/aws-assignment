@@ -3,6 +3,7 @@ temp
 .idea/
 .venv/
 .env/
+volume/
 
 # Ignore Terraform state files and directories
 **/*.tfstate
