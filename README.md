@@ -53,8 +53,8 @@ Make sure terraform is installed on the machine executing these commands. Follow
 #### Terraform init, plan and apply
 ```shell
 terraform init
-terraform plan --var-file="parameters-localstack.tfvars"
-terraform apply --var-file="parameters-localstack.tfvars" --auto-approve # run this after validating terraform plan output
+terraform plan --var-file="parameters.tfvars"
+terraform apply --var-file="parameters.tfvars" --auto-approve # run this after validating terraform plan output
 ```
 #### Validate functionality
 ###### upload a file to s3 bucket
